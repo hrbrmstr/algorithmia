@@ -1,0 +1,88 @@
+---
+output: rmarkdown::github_document
+---
+
+`algorithmia` : R interface to the [Algorithmia](https://algorithmia.com/) API
+
+The following functions are implemented:
+
+- `algo_api_key`:	Get or set ALGORITHMIA_API_KEY value
+- `algo_call`:	Call an Algorithmia algorithm
+- `algo_client`:	Initialize a new Algorithmia API client call
+- `algo_dir_exists`:	Test if a directory exists
+- `algo_dir_list`:	List a directory accessible by the Algorithmia service
+- `algo_download_file`:	Read a file from a URI accessible by the Algorithmia service & write to disk
+- `algo_file_exists`:	Test if a file exists
+- `algo_options`:	Set options for an algorithm call
+- `algo_pipe`:	Execute an Algorithmia algorithm call
+- `algo_read_file`:	Read a file from a URI accessible by the Algorithmia service
+
+### TODO
+
+- Finish file & dir functions
+- Wrap things with `purrr::safely()`
+- Craft something elegant for `output=void` option
+- Test with more gnarly endpoints
+- Finish documentation
+
+### Installation
+
+```{r eval=FALSE}
+devtools::install_github("hrbrmstr/algorithmia")
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+options(width=120)
+```
+
+### Usage
+
+```{r}
+library(algorithmia)
+
+# current verison
+packageVersion("algorithmia")
+
+```
+
+### Test Results
+
+```{r message=FALSE}
+library(algorithmia)
+library(testthat)
+library(magrittr)
+```
+
+```{r}
+date()
+
+algo_client() %>%
+  algo_call("demo", "Hello", "0.1.1") %>%
+  algo_options(30) %>%
+  algo_pipe("there", "text")
+
+# Have to provide some assistance to `httr` if the input is not a named list
+# and the content type is set to "json"
+
+algo_client() %>%
+  algo_call("demo", "Hello", "0.1.1") %>%
+  algo_options(30) %>%
+  algo_pipe('"there"', "json")
+
+algo_client() %>%
+  algo_dir_exists("s3://public-r-data/")
+
+algo_client() %>%
+  algo_dir_list("s3://public-r-data/")
+
+algo_client() %>%
+  algo_file_exists("s3://public-r-data/ghcran.json")
+
+algo_client() %>%
+  algo_read_file("s3://public-r-data/ghcran.json", fmt="parsed") -> cran
+
+str(cran[[1]])
+
+#test_dir("tests/")
+```
+
