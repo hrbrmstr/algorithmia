@@ -110,6 +110,8 @@ hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, "+") }
 X <- hilbert(9)[, 1:6]
 algo_client() %>% 
   algo_call("joannetang", "SVD", "0.1.0") %>% 
-  algo_pipe(X, "json")
+  algo_pipe(X, "json") -> svd_out
+
+matrix(unlist(svd_out$result$U), ncol=6, byrow=TRUE)
 ```
 
