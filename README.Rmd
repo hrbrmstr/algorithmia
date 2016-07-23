@@ -22,8 +22,8 @@ The following functions are implemented:
 - Finish file & dir functions
 - Wrap things with `purrr::safely()`
 - Craft something elegant for `output=void` option
-- Test with more gnarly endpoints
-- Finish documentation
+- Test with more gnarly endpoints (somewhat done)
+- Finish documentation (nearly done)
 
 ### Installation
 
@@ -54,7 +54,7 @@ library(magrittr)
 library(dplyr)
 ```
 
-```{r}
+```{r cache=TRUE}
 date()
 
 algo_client() %>%
@@ -89,7 +89,6 @@ algo_client() %>%
   algo_call("nlp", "Summarizer", "0.1.3") %>%
   algo_pipe(txt, "text")
 
-
 URL <- 'rud.is/b/2016/07/12/slaying-cidr-orcs-with-triebeard-a-k-a-fast-trie-based-ipv4-in-cidr-lookups-in-r/'
 algo_client() %>%
   algo_call("util", "Html2Text", "0.1.4") %>%
@@ -101,5 +100,16 @@ out <- algo_client() %>%
   algo_pipe(bits, "json")
 
 bind_rows(out$result)
+
+algo_client() %>% 
+  algo_call("TimeSeries", "TimeSeriesSummary", "0.1.2") %>% 
+  algo_pipe(list(uniformData=as.double(USAccDeaths)), "json")
+
+# matches the `base::svd()` example
+hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, "+") }
+X <- hilbert(9)[, 1:6]
+algo_client() %>% 
+  algo_call("joannetang", "SVD", "0.1.0") %>% 
+  algo_pipe(X, "json")
 ```
 

@@ -1,0 +1,79 @@
+---
+title: "Introduction to Algorithmia"
+author: "Bob Rudis"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to Algorithmia}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r echo=FALSE}
+options(width=120)
+```
+
+[Algorithmia](https://algorithmia.com/) is a platform for sharing the world's algorithmic knowledge in a way that is scalable, composable, easy-to-integrate, and always live. Contributors can write algorithms as REST-accessible web services in an array of languages. The `algorthmia` package provdes a `magrittr`-esque piping idom for programmatic interface to the Algorithmia API. This vignette shows how to work with the R interface, but it does not fully explain the Algorithmia service. You should familiarize yourself with the [official API documentation](http://docs.algorithmia.com/) as well as revie this document and the examples.
+
+### Getting Started
+
+When you sign up for an account on Algorithmia you are assigned an API key. It is highly suggested that you add this to your `.Renviron` file on a line that looks like:
+
+    ALGORITHMIA_API_KEY=api-key-from-algorithmia
+
+as it will then be automatically be picked up by the package when you call `algo_client()` and you can securely add a test key to continuous integration services such as TravisCI.
+
+All `algorithmia` API call pipes start with a call to `algo_client()` which creates an object that is then passed to subsequent functions. The following is a typical call sequence:
+
+```{r}
+library(algorithmia)
+
+algo_client() %>%                           # start the call
+  algo_call("demo", "Hello", "0.1.1") %>%   # define which algorithm to call
+  algo_pipe("there", "text")                # execute the call with the provided input/parameters
+```
+
+### Calling Real Algorithms
+
+Now, you can do more useful things than call the demo "hello, world" example, such as compute summary statistics for time series data:
+
+```{r}
+
+algo_client() %>% 
+  algo_call("TimeSeries", "TimeSeriesSummary", "0.1.2") %>% 
+  algo_pipe(list(uniformData=as.double(USAccDeaths)), "json")
+```
+
+Or, compute the singular-value decomposition of a rectangular matrix:
+
+```{r}
+# matches the `base::svd()` example
+hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, "+") }
+X <- hilbert(9)[, 1:6]
+algo_client() %>% 
+  algo_call("joannetang", "SVD", "0.1.0") %>% 
+  algo_pipe(X, "json") -> svd_out
+
+matrix(unlist(svd_out$result$U), ncol=6, byrow=TRUE)
+```
+
+You may see those examples and say _"But, I can do those in R!"_. And, you're right. However, Algorithmia affords the ooportunity to work with data in "the cloud" (stored on either Algorithmia's servers or in S3/Dropbox) and run the algorithms in "the cloud", meaning it's possible to use this service to operate on larger data sources than your local system can handle without becoming an expert in using services like Azure or AWS.
+
+Accessing these remote data sources is pretty straightforward once you configure access to them in the Algorithmia console:
+
+```{r}
+algo_client() %>%
+  algo_dir_exists("s3://public-r-data/")
+
+algo_client() %>%
+  algo_dir_list("s3://public-r-data/")
+
+algo_client() %>%
+  algo_file_exists("s3://public-r-data/ghcran.json")
+
+algo_client() %>%
+  algo_read_file("s3://public-r-data/ghcran.json", fmt="parsed") -> cran
+
+str(cran[[1]])
+```
+
+You can hit the directory of Algorithmia algorithms to find algorithms that are able to utilize remote data sources.

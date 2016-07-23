@@ -2,6 +2,7 @@
 
 S3method(print,algo_dirlist)
 S3method(print,algo_result)
+export("%>%")
 export(algo_api_key)
 export(algo_call)
 export(algo_client)
@@ -16,4 +17,5 @@ import(httr)
 import(purrr)
 importFrom(jsonlite,fromJSON)
 importFrom(jsonlite,toJSON)
+importFrom(magrittr,"%>%")
 importFrom(stringi,stri_split_regex)

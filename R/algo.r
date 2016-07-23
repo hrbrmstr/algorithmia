@@ -1,7 +1,13 @@
+#' @importFrom magrittr %>%
+#' @export
+magrittr::`%>%`
+
 #' Initialize a new Algorithmia API client call
 #'
-#' @param api_key Algorithmia API key
+#' @param api_key Algorithmia API key (picked up automagically if you
+#'        have the environment variable set)
 #' @export
+#' @references \url{http://docs.algorithmia.com/}
 #' @examples
 #' library(magrittr)
 #' algo_client() %>%
@@ -18,10 +24,20 @@ algo_client <- function(api_key=algo_api_key()) {
 
 #' Call an Algorithmia algorithm
 #'
-#' @param owner owner
-#' @param name name
-#' @param version version (optional)
+#' For each algorithm on the marketplace, you’ll find an owner (the user who created the
+#' algorithm), an algorithm name, and a version number.
+#'
+#' Specifying a version is recommended, but optional. If not specified, the latest
+#' publicly published version will be used.
+#'
+#' @param owner Algorithmia handle of the user who created the algorithm
+#' @param name algorithm name
+#' @param version algorithm version (optional). When explicitly specifying a version, the
+#'   following following formats are accepted: Fully specified version (e.g.
+#'   \code{1.1.1}); Specified to the minor level (e.g. \code{1.2.*}); Specified to a major
+#'   version (e.g. \code{1.*})
 #' @export
+#' @references \url{http://docs.algorithmia.com/}
 #' @examples
 #' library(magrittr)
 #' algo_client() %>%
@@ -40,10 +56,15 @@ algo_call <- function(algo_obj, owner, name, version=NULL) {
 #' Set options for an algorithm call
 #'
 #' @param algo_obj an \code{algorithmia} object
-#' @param timeout timeout
-#' @param stdout stdout
-#' @param output output
+#' @param timeout Specifies a timeout for the call in seconds. default=300 (5min),
+#'   max=3000 (50min)
+#' @param stdout Indicates algorithm stdout should be returned in the response metadata
+#'   (ignored unless you are the algorithm owner)
+#' @param output if not \code{NULL} then one of "\code{raw}" to return the result of the
+#'   algorithm call without the JSON-RPC wrapper or "\code{void}" which returns
+#'   immediately and does not wait for the algorithm to run
 #' @export
+#' @references \url{http://docs.algorithmia.com/}
 #' @examples
 #' library(magrittr)
 #' algo_client() %>%
@@ -63,6 +84,7 @@ algo_options <- function(algo_obj, timeout=300, stdout=FALSE, output=NULL) {
 #' @param input data to feed to the API call
 #' @param content_type specify encoding
 #' @export
+#' @references \url{http://docs.algorithmia.com/}
 #' @examples
 #' library(magrittr)
 #' algo_client() %>%
@@ -114,8 +136,9 @@ algo_pipe <- function(algo_obj, input, content_type=c("text", "json")) {
 #' List a directory accessible by the Algorithmia service
 #'
 #' @param algo_obj an \code{algorithmia} object
-#' @param dir_spec URI
+#' @param dir_spec URI (See \url{http://docs.algorithmia.com/#data-uri})
 #' @export
+#' @references \url{http://docs.algorithmia.com/}
 algo_dir_list <- function(algo_obj, dir_spec) {
 
   parts <- stri_split_regex(dir_spec, "://")[[1]]
@@ -140,8 +163,9 @@ algo_dir_list <- function(algo_obj, dir_spec) {
 #' Test if a directory exists
 #'
 #' @param algo_obj an \code{algorithmia} object
-#' @param dir_spec URI
+#' @param dir_spec URI (See \url{http://docs.algorithmia.com/#data-uri})
 #' @export
+#' @references \url{http://docs.algorithmia.com/}
 algo_dir_exists <- function(algo_obj, dir_spec) {
 
   parts <- stri_split_regex(dir_spec, "://")[[1]]
@@ -161,8 +185,9 @@ algo_dir_exists <- function(algo_obj, dir_spec) {
 #' Test if a file exists
 #'
 #' @param algo_obj an \code{algorithmia} object
-#' @param fil_spec URI
+#' @param fil_spec URI (See \url{http://docs.algorithmia.com/#data-uri})
 #' @export
+#' @references \url{http://docs.algorithmia.com/}
 algo_file_exists <- function(algo_obj, fil_spec) {
 
   parts <- stri_split_regex(fil_spec, "://")[[1]]
@@ -182,10 +207,13 @@ algo_file_exists <- function(algo_obj, fil_spec) {
 #' Read a file from a URI accessible by the Algorithmia service
 #'
 #' @param algo_obj an \code{algorithmia} object
-#' @param fil_spec URI
-#' @param fmt result object format
+#' @param fil_spec URI (See \url{http://docs.algorithmia.com/#data-uri})
+#' @param fmt result object format; "\code{text}" to retrieve the plain text of the
+#'   response; "\code{parsed}" to parse the response and return an R object; "\code{raw}"
+#'   to retrieve the binary response (useful for images)
 #' @param encoding content encoding
 #' @export
+#' @references \url{http://docs.algorithmia.com/}
 algo_read_file <- function(algo_obj, fil_spec, fmt=c("text", "parsed", "raw"), encoding=NULL) {
 
   fmt <- match.arg(fmt, c("text", "parsed", "raw"))
@@ -208,15 +236,16 @@ algo_read_file <- function(algo_obj, fil_spec, fmt=c("text", "parsed", "raw"), e
 
 }
 
-
 #' Read a file from a URI accessible by the Algorithmia service & write to disk
+#'
+#' Useful if the file is larger than memory.
 #'
 #' @param algo_obj an \code{algorithmia} object
 #' @param fil_spec URI
 #' @param local_file local file name to write to
 #' @param overwrite overwrite file if it exists?
 #' @export
-#' @export
+#' @references \url{http://docs.algorithmia.com/}
 algo_download_file <- function(algo_obj, fil_spec, local_fil, overwrite=TRUE) {
 
   parts <- stri_split_regex(fil_spec, "://")[[1]]

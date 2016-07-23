@@ -9,11 +9,15 @@ algo_options(algo_obj, timeout = 300, stdout = FALSE, output = NULL)
 \arguments{
 \item{algo_obj}{an \code{algorithmia} object}
 
-\item{timeout}{timeout}
+\item{timeout}{Specifies a timeout for the call in seconds. default=300 (5min),
+max=3000 (50min)}
 
-\item{stdout}{stdout}
+\item{stdout}{Indicates algorithm stdout should be returned in the response metadata
+(ignored unless you are the algorithm owner)}
 
-\item{output}{output}
+\item{output}{if not \code{NULL} then one of "\code{raw}" to return the result of the
+algorithm call without the JSON-RPC wrapper or "\code{void}" which returns
+immediately and does not wait for the algorithm to run}
 }
 \description{
 Set options for an algorithm call
@@ -24,5 +28,8 @@ algo_client() \%>\%
   algo_call("demo", "Hello", "0.1.1") \%>\%
   algo_options(30) \%>\%
   algo_pipe("there", "text")
+}
+\references{
+\url{http://docs.algorithmia.com/}
 }
 

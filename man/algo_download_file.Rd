@@ -16,6 +16,9 @@ algo_download_file(algo_obj, fil_spec, local_fil, overwrite = TRUE)
 \item{local_file}{local file name to write to}
 }
 \description{
-Read a file from a URI accessible by the Algorithmia service & write to disk
+Useful if the file is larger than memory.
+}
+\references{
+\url{http://docs.algorithmia.com/}
 }
 

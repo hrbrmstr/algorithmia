@@ -23,4 +23,7 @@ algo_client() \%>\%
   algo_options(30) \%>\%
   algo_pipe("there", "text")
 }
+\references{
+\url{http://docs.algorithmia.com/}
+}
 

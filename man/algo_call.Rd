@@ -7,19 +7,30 @@
 algo_call(algo_obj, owner, name, version = NULL)
 }
 \arguments{
-\item{owner}{owner}
+\item{owner}{Algorithmia handle of the user who created the algorithm}
 
-\item{name}{name}
+\item{name}{algorithm name}
 
-\item{version}{version (optional)}
+\item{version}{algorithm version (optional). When explicitly specifying a version, the
+following following formats are accepted: Fully specified version (e.g.
+\code{1.1.1}); Specified to the minor level (e.g. \code{1.2.*}); Specified to a major
+version (e.g. \code{1.*})}
 }
 \description{
-Call an Algorithmia algorithm
+For each algorithm on the marketplace, you’ll find an owner (the user who created the
+algorithm), an algorithm name, and a version number.
+}
+\details{
+Specifying a version is recommended, but optional. If not specified, the latest
+publicly published version will be used.
 }
 \examples{
 library(magrittr)
 algo_client() \%>\%
   algo_call("demo", "Hello", "0.1.1") \%>\%
   algo_pipe("there", "text")
+}
+\references{
+\url{http://docs.algorithmia.com/}
 }
 

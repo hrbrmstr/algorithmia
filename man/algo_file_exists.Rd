@@ -9,9 +9,12 @@ algo_file_exists(algo_obj, fil_spec)
 \arguments{
 \item{algo_obj}{an \code{algorithmia} object}
 
-\item{fil_spec}{URI}
+\item{fil_spec}{URI (See \url{http://docs.algorithmia.com/#data-uri})}
 }
 \description{
 Test if a file exists
+}
+\references{
+\url{http://docs.algorithmia.com/}
 }
 

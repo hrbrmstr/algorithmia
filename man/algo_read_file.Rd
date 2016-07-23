@@ -10,13 +10,18 @@ algo_read_file(algo_obj, fil_spec, fmt = c("text", "parsed", "raw"),
 \arguments{
 \item{algo_obj}{an \code{algorithmia} object}
 
-\item{fil_spec}{URI}
+\item{fil_spec}{URI (See \url{http://docs.algorithmia.com/#data-uri})}
 
-\item{fmt}{result object format}
+\item{fmt}{result object format; "\code{text}" to retrieve the plain text of the
+response; "\code{parsed}" to parse the response and return an R object; "\code{raw}"
+to retrieve the binary response (useful for images)}
 
 \item{encoding}{content encoding}
 }
 \description{
 Read a file from a URI accessible by the Algorithmia service
+}
+\references{
+\url{http://docs.algorithmia.com/}
 }
 

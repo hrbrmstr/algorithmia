@@ -9,9 +9,12 @@ algo_dir_list(algo_obj, dir_spec)
 \arguments{
 \item{algo_obj}{an \code{algorithmia} object}
 
-\item{dir_spec}{URI}
+\item{dir_spec}{URI (See \url{http://docs.algorithmia.com/#data-uri})}
 }
 \description{
 List a directory accessible by the Algorithmia service
+}
+\references{
+\url{http://docs.algorithmia.com/}
 }
 

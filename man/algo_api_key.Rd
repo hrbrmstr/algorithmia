@@ -13,9 +13,22 @@ algo_api_key(force = FALSE)
 atomic character vector containing the Algorithmia API key
 }
 \description{
-The API wrapper functions in this package all rely on a Algorithmia API
-key residing in the environment variable \code{ALGORITHMIA_API_KEY}. The
-easiest way to accomplish this is to set it in the `.Renviron` file in your
-home directory.
+The API wrapper functions in this package all rely on a Algorithmia API key residing in
+the environment variable \code{ALGORITHMIA_API_KEY}. The easiest way to accomplish this
+is to set it in the `.Renviron` file in your home directory.
+}
+\details{
+API requests are authenticated by a key which can be found and managed from your user
+profile. With every call to the API, the user must be authenticated. The API has a
+simple means to do this by passing in your key as an HTTP “Authorization” header with
+the request.
+
+When you signed up for Algorithmia, a ‘default-key’ was generated for your convenience.
+This is the key that is used throughout the example code within algorithm pages. For
+these examples to work correctly, this default key must exist with all the permissions,
+otherwise the usage examples may result in a 401 Unauthorized error.
+}
+\references{
+\url{http://docs.algorithmia.com/}
 }
 

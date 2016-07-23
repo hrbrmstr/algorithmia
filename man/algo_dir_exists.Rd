@@ -9,9 +9,12 @@ algo_dir_exists(algo_obj, dir_spec)
 \arguments{
 \item{algo_obj}{an \code{algorithmia} object}
 
-\item{dir_spec}{URI}
+\item{dir_spec}{URI (See \url{http://docs.algorithmia.com/#data-uri})}
 }
 \description{
 Test if a directory exists
+}
+\references{
+\url{http://docs.algorithmia.com/}
 }
 

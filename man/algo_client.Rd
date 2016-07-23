@@ -7,7 +7,8 @@
 algo_client(api_key = algo_api_key())
 }
 \arguments{
-\item{api_key}{Algorithmia API key}
+\item{api_key}{Algorithmia API key (picked up automagically if you
+have the environment variable set)}
 }
 \description{
 Initialize a new Algorithmia API client call
@@ -17,5 +18,8 @@ library(magrittr)
 algo_client() \%>\%
   algo_call("demo", "Hello", "0.1.1") \%>\%
   algo_pipe("there", "text")
+}
+\references{
+\url{http://docs.algorithmia.com/}
 }
 

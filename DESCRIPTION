@@ -12,7 +12,9 @@ URL: http://github.com/hrbrmstr/algorithmia
 BugReports: https://github.com/hrbrmstr/algorithmia/issues
 License: AGPL
 Suggests:
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 Depends:
     R (>= 3.0.0)
 Imports:
@@ -22,3 +24,4 @@ Imports:
     stringi,
     magrittr
 RoxygenNote: 5.0.1
+VignetteBuilder: knitr
