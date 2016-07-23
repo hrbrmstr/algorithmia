@@ -72,7 +72,8 @@ algo_options <- function(algo_obj, timeout=300, stdout=FALSE, output=NULL) {
 algo_pipe <- function(algo_obj, input, content_type=c("text", "json")) {
 
   content_type <- match.arg(content_type, c("json", "text"))
-  content_type <- switch(content_type,
+
+  ctype <- switch(content_type,
                          `json`="application/json",
                          `text`="application/text",
                          `octet-stream`="application/octet-stream")
@@ -90,9 +91,11 @@ algo_pipe <- function(algo_obj, input, content_type=c("text", "json")) {
   params <- NULL
   if (!is.null(algo_obj$options)) params <- algo_obj$options
 
+  if (encode=="json") input <- jsonlite::toJSON(input, auto_unbox=TRUE)
+
   ret <- httr::POST(URL,
                     httr::add_headers(`Authorization`=sprintf("Simple %s", algo_obj$api_key)),
-                    httr::content_type(content_type),
+                    httr::content_type(ctype),
                     encode=encode,
                     body=input,
                     query=params)

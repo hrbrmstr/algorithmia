@@ -51,6 +51,7 @@ packageVersion("algorithmia")
 library(algorithmia)
 library(testthat)
 library(magrittr)
+library(dplyr)
 ```
 
 ```{r}
@@ -83,6 +84,22 @@ algo_client() %>%
 
 str(cran[[1]])
 
-#test_dir("tests/")
+txt <- "A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a financial institution. Digital signatures provide part of the solution, but the main benefits are lost if a trusted third party is still required to prevent double-spending. We propose a solution to the double-spending problem using a peer-to-peer network. The network timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work, forming a record that cannot be changed without redoing the proof-of-work. The longest chain not only serves as proof of the sequence of events witnessed, but proof that it came from the largest pool of CPU power. As long as a majority of CPU power is controlled by nodes that are not cooperating to attack the network, they'll generate the longest chain and outpace attackers. The network itself requires minimal structure. Messages are broadcast on a best effort basis, and nodes can leave and rejoin the network at will, accepting the longest proof-of-work chain as proof of what happened while they were gone."
+algo_client() %>%
+  algo_call("nlp", "Summarizer", "0.1.3") %>%
+  algo_pipe(txt, "text")
+
+
+URL <- 'rud.is/b/2016/07/12/slaying-cidr-orcs-with-triebeard-a-k-a-fast-trie-based-ipv4-in-cidr-lookups-in-r/'
+algo_client() %>%
+  algo_call("util", "Html2Text", "0.1.4") %>%
+  algo_pipe(URL, "text")
+
+bits <- list("This is a test of what this is. Hopefully this is going to work well as a test.", 2, 5, FALSE, TRUE)
+out <- algo_client() %>%
+  algo_call("WebPredict", "GetNGramFrequencies", "0.1.1") %>%
+  algo_pipe(bits, "json")
+
+bind_rows(out$result)
 ```
 

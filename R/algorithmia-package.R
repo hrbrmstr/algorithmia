@@ -5,6 +5,6 @@
 #' @author Bob Rudis (@@hrbrmstr)
 #' @import purrr
 #' @import httr
-#' @importFrom jsonlite fromJSON
+#' @importFrom jsonlite fromJSON toJSON
 #' @importFrom stringi stri_split_regex
 NULL
