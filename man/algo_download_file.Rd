@@ -4,16 +4,16 @@
 \alias{algo_download_file}
 \title{Read a file from a URI accessible by the Algorithmia service & write to disk}
 \usage{
-algo_download_file(algo_obj, fil_spec, local_fil, overwrite = TRUE)
+algo_download_file(algo_obj, fil_spec, local_file, overwrite = TRUE)
 }
 \arguments{
 \item{algo_obj}{an \code{algorithmia} object}
 
 \item{fil_spec}{URI}
 
-\item{overwrite}{overwrite file if it exists?}
-
 \item{local_file}{local file name to write to}
+
+\item{overwrite}{overwrite file if it exists?}
 }
 \description{
 Useful if the file is larger than memory.
@@ -21,4 +21,3 @@ Useful if the file is larger than memory.
 \references{
 \url{http://docs.algorithmia.com/}
 }
-

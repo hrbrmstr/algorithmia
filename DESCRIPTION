@@ -1,15 +1,19 @@
 Package: algorithmia
 Type: Package
 Title: Tools to Work with the 'Algorithmia' 'API'
-Version: 0.1.0
-Date: 2016-07-22
-Author: Bob Rudis (@hrbrmstr)
+Version: 0.1.1
+Date: 20168-09-16
+Authors@R: c(
+    person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"), 
+           comment = c(ORCID = "0000-0001-5670-2640"))
+    )
 Maintainer: Bob Rudis <bob@rudis.net>
 Description: The 'Algorithmia' web service provide a normalized 'API' abstraction
     layer to numerous microservices and machine learning algorithms. Functions are
     provided to enable accessing the 'Algorithmia' 'API' using a "piping" idiom.
 URL: http://github.com/hrbrmstr/algorithmia
 BugReports: https://github.com/hrbrmstr/algorithmia/issues
+Encoding: UTF-8
 License: AGPL
 Suggests:
     testthat,
@@ -22,6 +26,7 @@ Imports:
     httr,
     jsonlite,
     stringi,
-    magrittr
-RoxygenNote: 5.0.1
+    magrittr,
+    utils
+RoxygenNote: 6.0.1.9000
 VignetteBuilder: knitr

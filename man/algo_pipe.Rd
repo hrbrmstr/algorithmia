@@ -26,4 +26,3 @@ algo_client() \%>\%
 \references{
 \url{http://docs.algorithmia.com/}
 }
-

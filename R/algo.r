@@ -30,6 +30,7 @@ algo_client <- function(api_key=algo_api_key()) {
 #' Specifying a version is recommended, but optional. If not specified, the latest
 #' publicly published version will be used.
 #'
+#' @param algo_obj an \code{algorithmia} object
 #' @param owner Algorithmia handle of the user who created the algorithm
 #' @param name algorithm name
 #' @param version algorithm version (optional). When explicitly specifying a version, the
@@ -246,7 +247,7 @@ algo_read_file <- function(algo_obj, fil_spec, fmt=c("text", "parsed", "raw"), e
 #' @param overwrite overwrite file if it exists?
 #' @export
 #' @references \url{http://docs.algorithmia.com/}
-algo_download_file <- function(algo_obj, fil_spec, local_fil, overwrite=TRUE) {
+algo_download_file <- function(algo_obj, fil_spec, local_file, overwrite=TRUE) {
 
   parts <- stri_split_regex(fil_spec, "://")[[1]]
 
@@ -257,7 +258,7 @@ algo_download_file <- function(algo_obj, fil_spec, local_fil, overwrite=TRUE) {
 
   ret <- httr::GET(URL,
                    httr::add_headers(`Authorization`=sprintf("Simple %s", algo_obj$api_key)),
-                   httr::write_disk(local_fil, overwrite=overwrite))
+                   httr::write_disk(local_file, overwrite=overwrite))
 
   invisible(httr::status_code(ret) == 200 &  headers(ret)$`X-Data-Type` == "file")
 

@@ -7,6 +7,8 @@
 algo_call(algo_obj, owner, name, version = NULL)
 }
 \arguments{
+\item{algo_obj}{an \code{algorithmia} object}
+
 \item{owner}{Algorithmia handle of the user who created the algorithm}
 
 \item{name}{algorithm name}
@@ -33,4 +35,3 @@ algo_client() \%>\%
 \references{
 \url{http://docs.algorithmia.com/}
 }
-

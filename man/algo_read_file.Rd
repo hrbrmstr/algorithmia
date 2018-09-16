@@ -24,4 +24,3 @@ Read a file from a URI accessible by the Algorithmia service
 \references{
 \url{http://docs.algorithmia.com/}
 }
-

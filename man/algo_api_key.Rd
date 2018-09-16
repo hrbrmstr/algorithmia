@@ -31,4 +31,3 @@ otherwise the usage examples may result in a 401 Unauthorized error.
 \references{
 \url{http://docs.algorithmia.com/}
 }
-

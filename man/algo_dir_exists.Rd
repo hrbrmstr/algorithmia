@@ -17,4 +17,3 @@ Test if a directory exists
 \references{
 \url{http://docs.algorithmia.com/}
 }
-
